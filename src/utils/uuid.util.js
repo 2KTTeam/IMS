@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
 
-const cacheFilePath = path.join(__dirname, '../registrationIdCache.txt');
+const cacheFilePath = path.join(__dirname, '../.registrationIdCache.txt');
 
 const readCachedIDs = () => {
   try {
