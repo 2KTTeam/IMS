@@ -30,7 +30,9 @@ const generateUniqueID = (existingIDs) => {
   do {
     newID = uuid.v4();
   } while (existingIDs.has(newID));
-  return newID;
+  const newId = newID.toUpperCase().split('-')
+  const newUniqueID = newId.join('');
+  return newUniqueID;
 };
 
 const giveID = async () => {

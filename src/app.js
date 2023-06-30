@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const treblle = require('@treblle/express')
+const treblle = require('@treblle/express');
 const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
