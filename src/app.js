@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const methodOverride = require('method-override');
 const treblle = require('@treblle/express');
 const cors = require("cors");
 const xss = require("xss-clean");
@@ -30,7 +30,7 @@ app.use(
   })
 );
 app.use(morgan("tiny"));
-
+app.use(methodOverride('_method'));
 app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -39,6 +39,7 @@ app.use(
 );
 app.use(express.json({ limit: "100mb", extended: true }));
 app.use(helmet());
+app.use(helmet.frameguard({ action: 'sameorigin' }));
 app.use(cors(
   {
     origin: "*",

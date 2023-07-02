@@ -5,10 +5,10 @@ const { User, userService } = require("../models");
 
 const register = async (req, res) => {
   try {
-    const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+    const { firstname, lastname, email,role, password, gender, dateOfBirth, phoneNumber, address } = req.body;
 
     // Check if a user with the same email already exists
-    const existingUser = await userService.queryOne({ email });
+    const existingUser = await userService.queryOne({ email:email, role:role});
     if (existingUser) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         success: false,
@@ -24,6 +24,7 @@ const register = async (req, res) => {
       firstname,
       lastname,
       email,
+      role,
       password: hashedPassword,
       gender,
       dateOfBirth,
@@ -66,13 +67,11 @@ const login = async function (req, res) {
 };
 
 const tested = async function (req, res) {
-  console.log("tested function called");
   try {
-    const newUser = await userService.queryOne({email:'johndoe@example.com'})
+    const newUser = await userService.queryOne({email:'afudohkachi@gmail.com'})
     return res.status(StatusCodes.OK).json({
-      newUser,
       status: "success",
-      message: "Test successfully"
+      newUser,
     })
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

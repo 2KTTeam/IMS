@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const DbService = require('./data.service');
+const allowedRoles = ['admin', 'manager', 'user'];
+const allowedGender = ['male', 'female', 'others'];
 
 const userSchema = new mongoose.Schema({
   userId: {
@@ -18,6 +20,11 @@ const userSchema = new mongoose.Schema({
     minlength: [3, 'Last name must be at least 3 characters.'],
     maxlength: [20, 'Last name cannot be more than 20 characters.']
   },
+  role: {
+    type: String,
+    enum: allowedRoles,
+    required: [true, "Please select a role"],
+  },
   email: {
     type: String,
     required: [true, 'Email is required.'],
@@ -31,7 +38,7 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ['male', 'female', 'other']
+    enum: allowedGender,
   },
   dateOfBirth: {
     type: Date

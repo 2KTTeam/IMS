@@ -20,7 +20,8 @@ const userSchema = Joi.object({
     'string.min': 'Password must be at least 8 characters long',
     'string.pattern.base': 'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
   }),
-  gender: Joi.string().valid('male', 'female', 'other'),
+  gender: Joi.string().valid('male', 'female', 'others'),
+  role: Joi.string().valid('admin', 'manager', 'user'),
   dateOfBirth: Joi.date(),
   phoneNumber: Joi.string().pattern(/^0\d{10}$/).messages({
     'string.pattern.base': 'Invalid phone number format. Phone numbers must start with 0 and have 11 digits',
