@@ -1,5 +1,5 @@
 const app = require("./app.js");
-const { DB, ENV } = require("./configs");
+const { DB, ENV, seedManager } = require("./configs");
 
 const MONGO_URL = ENV.dbUrl;
 const port = ENV.port
@@ -12,6 +12,7 @@ const start = async () => {
         console.log(`server is listening on port ${port}`);
       });
     }
+    await seedManager();
   } catch (error) {
     console.error(error);
   }

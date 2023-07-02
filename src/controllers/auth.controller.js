@@ -1,44 +1,22 @@
 const { StatusCodes } = require("http-status-codes");
 const { auth } = require("../services");
-const { uuidUtil, passwordUtil } = require("../utils");
-const { User, userService } = require("../models");
 
 const register = async (req, res) => {
   try {
-    const { firstname, lastname, email,role, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+    const { firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address } = req.body;
 
-    // Check if a user with the same email already exists
-    const existingUser = await userService.queryOne({ email:email, role:role});
-    if (existingUser) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        success: false,
-        error: 'User with the provided email already exists.'
-      });
+    const newUser = {
+      firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address
     }
-    
-    // Hash the password using the passwordUtil
-    const hashedPassword = await passwordUtil.hashPassword(password); 
 
-    const newUser = new User({
-      userId: await uuidUtil.giveID(),
-      firstname,
-      lastname,
-      email,
-      role,
-      password: hashedPassword,
-      gender,
-      dateOfBirth,
-      phoneNumber,
-      address
-    });
-    console.log({newUser})
-    const savedUser = await newUser.save();
-    console.log({savedUser})
+    const user = await auth.register(newUser);
 
+    // Return the saved User object
     return res.status(StatusCodes.CREATED).json({
       status: 'success',
-      newUser: savedUser
+      user
     });
+
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
@@ -53,7 +31,6 @@ const login = async function (req, res) {
     const password = req.body.password;
     const token = await auth.login(email, password);
 
-
     return res.status(StatusCodes.OK).json({
       status: "success",
       token
@@ -66,24 +43,9 @@ const login = async function (req, res) {
   }
 };
 
-const tested = async function (req, res) {
-  try {
-    const newUser = await userService.queryOne({email:'afudohkachi@gmail.com'})
-    return res.status(StatusCodes.OK).json({
-      status: "success",
-      newUser,
-    })
-  } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      error: `Error testing : ${error.message}`,
-    });
-  }
-};
 
 
 module.exports = {
   register,
   login,
-  tested
 };
