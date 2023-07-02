@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { StatusCodes } = require("http-status-codes");
 const jwt = require('jsonwebtoken');
 const { ENV } = require('../configs');
 const { User } = require('../models');
@@ -29,7 +30,7 @@ async function protect(req, res, next) {
       ? req.headers.authorization.split(" ")[1]
       : null;
 
-    if (token == null) {
+    if (!token || token == null) {
       return res.status(400).json({ message: "No Token Provided!" });
     }
     // decode the token
@@ -42,7 +43,7 @@ async function protect(req, res, next) {
         error: "User Not Found",
       });
     }
-    console.log(user.username + " is successfully authenticated");
+    console.log(user.firstname + " is successfully authenticated");
     // add the user to the request
     req.user = user;
     // call the next middleware
@@ -55,9 +56,41 @@ async function protect(req, res, next) {
   }
 };
 
+async function managerPrivilege(req, res, next) {
+  try {
+    if (req.user.role !== "manager") {
+      throw new Error("user is not a manager");
+    }
+
+    next();
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      message: `Permission denied ${error.message}`,
+    });
+  }
+}
+
+
+async function adminPrivilege(req, res, next) {
+  try {
+    if (req.user.role !== "admin") {
+      throw new Error("user is not an admin");
+    }
+
+    next();
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      message: `Permission denied ${error.message}`,
+    });
+  }
+}
 
 module.exports = {
   signToken,
   decodeToken,
   protect,
+  managerPrivilege,
+  adminPrivilege,
 };

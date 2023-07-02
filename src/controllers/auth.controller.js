@@ -5,6 +5,13 @@ const register = async (req, res) => {
   try {
     const { firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address } = req.body;
 
+    const userRoute = req.route.path;
+    if (userRoute == '/register/admin'){
+      console.log('manager is regisering an admin account');
+    } else if (userRoute == '/register/user') {
+      console.log('admin is regisering a user account');
+    }
+
     const newUser = {
       firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address
     }
