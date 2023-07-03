@@ -1,4 +1,4 @@
-const { uuidUtil, passwordUtil, jwt } = require('../utils');
+const { uuidUtil, passwordUtil, jwt, verification_token } = require('../utils');
 const { userService, User } = require('../models');
 
 class AuthHelper {
@@ -18,6 +18,7 @@ class AuthHelper {
         userId: await uuidUtil.giveID(),
         firstname: Props.firstname,
         lastname: Props.lastname,
+        verification_token: verification_token(),
         email: Props.email,
         role: Props.role,
         password: hashedPassword,
@@ -49,7 +50,6 @@ class AuthHelper {
 
       if (isPassword) {
         const token = await jwt.signToken({ user });
-        console.log('token: ' + token);
         return token;
       } else {
         throw new Error('Invalid password');

@@ -2,17 +2,36 @@ const mongoose = require('mongoose');
 const DbService = require('./data.service');
 const allowedRoles = ['admin', 'manager', 'user'];
 const allowedGender = ['male', 'female', 'others'];
+const allowedStatus = ["active", "suspended", "deleted"];
+const cloudinaryType = [
+  {
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
+];
 
 const userSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: [true, 'userId is required']
   },
+  verification_token:{
+    type: String,
+  },
   firstname: {
     type: String,
     required: [true, 'First name is required.'],
     minlength: [3, 'First name must be at least 3 characters.'],
     maxlength: [20, 'First name cannot be more than 20 characters.']
+  },
+  middlename: {
+    type: String,
+    minlength: [2, 'First name must be at least 2 characters'],
+    maxlength: [20, 'First name cannot be more than 20 characters'],
   },
   lastname: {
     type: String,
@@ -40,8 +59,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: allowedGender,
   },
+  photos: cloudinaryType,
+  files: cloudinaryType,
   dateOfBirth: {
     type: Date
+  },
+  occupation: {
+    type: String
   },
   phoneNumber: {
     type: String,
@@ -59,7 +83,12 @@ const userSchema = new mongoose.Schema({
     country: {
       type: String
     }
-  }
+  },
+  status: {
+    type: String,
+    enum: allowedStatus,
+    default: "active",
+  },
 }, {
   timestamps: true
 });

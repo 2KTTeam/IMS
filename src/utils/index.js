@@ -3,6 +3,7 @@ const home = require('./home.page');
 const uuidUtil = require('./uuid.util');
 const passwordUtil = require('./password.util');
 const jwt = require('./jwt.util');
+const verification_token = require('./verificationId.util');
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
   home,
   uuidUtil,
   passwordUtil,
-  jwt
+  jwt,
+  verification_token
 };

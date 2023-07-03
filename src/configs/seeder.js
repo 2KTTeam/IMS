@@ -1,4 +1,5 @@
 const axios = require('axios');
+const {port} = require('./env.config');
 
 async function seedManager() {
   const postData = {
@@ -17,7 +18,7 @@ async function seedManager() {
   };
 
   try {
-    const response = await axios.post('http://localhost:3000/api/v1/auth/register/manager', postData);
+    const response = await axios.post(`http://localhost:${port}/api/v1/auth/register/manager`, postData);
     return response.data;
   } catch (error) {
     return {
