@@ -8,8 +8,20 @@ const register = async (req, res) => {
     const userRoute = req.route.path;
     if (userRoute == '/register/admin'){
       console.log('manager is regisering an admin account');
+      if (req.user.role !== 'manager'){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: `you must be a manager`
+        });
+      } 
     } else if (userRoute == '/register/user') {
       console.log('admin is regisering a user account');
+      if (req.user.role !== 'admin'){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: `you must be an admin`
+        });
+      } 
     }
 
     const newUser = {
