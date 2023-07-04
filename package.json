@@ -22,12 +22,8 @@
     "express-rate-limit": "^6.7.0",
     "helmet": "^6.2.0",
     "http-status-codes": "^2.2.0",
-<<<<<<< HEAD
     "joi": "^17.9.2",
-=======
     "ip": "^2.0.0",
-    "joi": "^17.9.1",
->>>>>>> b7d7047751d05071ec21b2962197e2a97e99796a
     "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
     "mongoose": "^7.3.1",
