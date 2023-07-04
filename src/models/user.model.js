@@ -84,6 +84,9 @@ const userSchema = new mongoose.Schema({
       type: String
     }
   },
+  OTP: {
+    type: String
+  },
   status: {
     type: String,
     enum: allowedStatus,
