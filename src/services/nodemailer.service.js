@@ -35,7 +35,7 @@ function createTransport(email) {
   return nodemailer.createTransport(config);
 }
 
-async function sendMail(email, to, subject, html, from = '"Assocmaster" <noreply@assocmaster.com>') {
+async function sendMail(email, to, subject, html, from = '"2KTteam" <noreply@2KTteam.com>') {
   const transport = createTransport(email);
   await transport.sendMail({
     from: from,

@@ -6,9 +6,11 @@ const asyncHandler = require("express-async-handler");
 const { register } = require("../../validators");
 const {multer} = require("../../middlewares");
 
-router.post("/register/manager", register, asyncHandler(handler.auth.register));
-router.post("/register/admin", protect, managerPrivilege, register, asyncHandler(handler.auth.register));
-router.post("/register/user", protect, adminPrivilege, register, asyncHandler(handler.auth.register));
+router.post("/register/manager", register, asyncHandler(handler.auth.registerManager));
+router.post("/register/admin", protect, managerPrivilege, register, asyncHandler(handler.auth.registerAdmin));
+router.post("/register/user", protect, adminPrivilege, register, asyncHandler(handler.auth.registerUser));
+
+
 router.post('/login', asyncHandler(handler.auth.login));
 
 

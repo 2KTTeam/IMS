@@ -1,28 +1,11 @@
 const { StatusCodes } = require("http-status-codes");
 const { auth } = require("../services");
+const {sendWelcomeEmail} = require('../email');
 
-const register = async (req, res) => {
+
+const registerManager = async (req, res) => {
   try {
     const { firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address } = req.body;
-
-    const userRoute = req.route.path;
-    if (userRoute == '/register/admin'){
-      console.log('manager is regisering an admin account');
-      if (req.user.role !== 'manager'){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-          success: false,
-          message: `you must be a manager`
-        });
-      } 
-    } else if (userRoute == '/register/user') {
-      console.log('admin is regisering a user account');
-      if (req.user.role !== 'admin'){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-          success: false,
-          message: `you must be an admin`
-        });
-      } 
-    }
 
     const newUser = {
       firstname, lastname, email, role, password, gender, dateOfBirth, phoneNumber, address
@@ -43,6 +26,67 @@ const register = async (req, res) => {
     });
   }
 };
+
+
+const registerAdmin = async (req, res) => {
+  try {
+    const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+
+    const newUser = {
+      firstname, lastname, email, role: 'admin', password, gender, dateOfBirth, phoneNumber, address
+    }
+
+    const user = await auth.register(newUser);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'Admin not registered!'
+      });
+    }
+    
+    sendWelcomeEmail(email, firstname, lastname,email, password)
+
+    // Return the saved User object
+    return res.status(StatusCodes.CREATED).json({
+      success: true,
+      user
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: `Error creating Admin: ${error.message}`
+    });
+  }
+}
+
+const registerUser = async (req, res) => {
+  try {
+    const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+
+    const newUser = {
+      firstname, lastname, email, role: 'user', password, gender, dateOfBirth, phoneNumber, address
+    }
+
+    const user = await auth.register(newUser);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'Admin not registered!'
+      });
+    }
+
+    // Return the saved User object
+    return res.status(StatusCodes.CREATED).json({
+      success: true,
+      user
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: `Error creating Admin: ${error.message}`
+    });
+  }
+}
 
 const login = async function (req, res) {
   try {
@@ -65,6 +109,8 @@ const login = async function (req, res) {
 
 
 module.exports = {
-  register,
+  registerManager,
+  registerAdmin,
+  registerUser,
   login,
 };
