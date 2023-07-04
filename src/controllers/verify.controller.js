@@ -42,7 +42,27 @@ const verifyUserId = async function (req, res) {
 
 const accessProfile = async function (req, res) {
   try {
-    const { userId } = req.body;
+    const { OTP } = req.body;
+    const {TokenId} = req.params;
+    const availableUser = await userService.queryOne({ verification_token: TokenId, OTP:OTP });
+
+    let copy = JSON.parse(JSON.stringify(availableUser));
+    
+    delete copy.password;
+    delete copy.verification_token;
+    delete copy.OTP;
+    delete copy.__v;
+    delete copy._id;
+    delete copy.createdAt;
+    delete copy.updatedAt;
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      user: copy
+    });
+
+
+
    
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 // const { register } = require("../../validators");
 
 router.post('/verify', asyncHandler(handler.verify.verifyUserId));
-router.post('/confirm', asyncHandler(handler.verify.accessProfile));
+router.post('/confirm/:TokenId', asyncHandler(handler.verify.accessProfile));
 
 
 module.exports = router;          
