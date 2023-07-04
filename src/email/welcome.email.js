@@ -15,13 +15,15 @@ function sendWelcomeEmail(recipient, firstname, lastname, email, password) {
       <p>Dear ${firstname} ${lastname},</p>
       <p>Welcome to our platform as an Admin staff member. We are excited to have you on board!</p>
       <p>Below are your login credentials:</p>
-      <p>Email: ${email}</p>
-      <p>Password: ${password}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Password:</strong> ${password}</p>
       <p>Please keep this information secure and do not share it with anyone.</p>
-      <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
-      <p>Thank you and enjoy your experience on our platform!</p>
+      <p>This will be used for your authentication while registering users.</p>
+      <p>Thank you for accepting the role of an Admin on 2KTteam!</p>
+      <br>
       <p>Best regards,</p>
-      <p>Your Company</p>
+      <p>Douglas,</p>
+      <p>2KTteam</p>
     </body>
     </html>
   `;

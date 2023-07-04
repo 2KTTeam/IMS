@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { auth } = require("../services");
-const {sendWelcomeEmail} = require('../email');
+const {sendWelcomeEmail, welcomeUser } = require('../email');
 
 
 const registerManager = async (req, res) => {
@@ -43,7 +43,7 @@ const registerAdmin = async (req, res) => {
         message: 'Admin not registered!'
       });
     }
-    
+
     sendWelcomeEmail(email, firstname, lastname,email, password)
 
     // Return the saved User object
@@ -74,7 +74,7 @@ const registerUser = async (req, res) => {
         message: 'Admin not registered!'
       });
     }
-
+    welcomeUser(email, firstname, lastname,email, password, user.verification_token)
     // Return the saved User object
     return res.status(StatusCodes.CREATED).json({
       success: true,
