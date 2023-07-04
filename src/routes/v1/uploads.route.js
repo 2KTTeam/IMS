@@ -5,7 +5,7 @@ const handler = require("../../controllers");
 const asyncHandler = require("express-async-handler");
 const {multer} = require("../../middlewares");
 
-router.post("/image/upload", multer, asyncHandler(handler.profile.uploadImage));
-router.post('/file/upload', multer, asyncHandler(handler.profile.uploadFile));
+router.post("/images", multer, asyncHandler(handler.profile.uploadImage));
+router.post('/files', multer, asyncHandler(handler.profile.uploadFile));
 
 module.exports = router;          
