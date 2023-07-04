@@ -5,6 +5,7 @@ const passwordUtil = require('./password.util');
 const jwt = require('./jwt.util');
 const verification_token = require('./verificationId.util');
 const generateOTP = require('./otp.util');
+const {organisationwWelcomeEmail} = require('./organisation_onboarding.util');
 
 
 module.exports = {
@@ -15,4 +16,5 @@ module.exports = {
   jwt,
   verification_token,
   generateOTP,
+  organisationwWelcomeEmail
 };
