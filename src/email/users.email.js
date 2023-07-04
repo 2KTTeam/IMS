@@ -14,7 +14,6 @@ function sendWelcomeEmail(recipient, firstname, lastname, email, password, token
       <h2>Welcome to Our Platform</h2>
       <p>Dear ${firstname} ${lastname},</p>
       <p>Welcome to our platform. On behalf of the entire team at 2KTteam, we extend our warmest greetings and gratitude for choosing to register on our organization.</p>
-      <br>
       <p>Please find below your essential login credentials:</p>
       <p><strong>Token:</strong> ${token}</p>
       <p><strong>Email:</strong> ${email}</p>
