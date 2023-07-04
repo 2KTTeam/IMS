@@ -77,7 +77,6 @@ async function adminPrivilege(req, res, next) {
     if (req.user.role !== "admin") {
       throw new Error("user is not an admin");
     }
-
     next();
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json({
