@@ -4,6 +4,6 @@ module.exports = (req, res) => {
   console.log({ user: req.user });
   return res.json({
     success: true,
-    message: `welcome to the backend server: ${pid}`,
+    message: `Welcome to the IMS API server: processID ${pid}`,
   });
 };
