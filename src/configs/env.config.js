@@ -9,4 +9,6 @@ module.exports = {
   cloudinary_name: process.env.CLOUDINARY_API_NAME,
   cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
   cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
+  owners_email: process.env.OWNERS_EMAIL_ADDRESS,
+  owners_password: process.env.OWNERS_PASSWORD,
 };
