@@ -85,7 +85,14 @@ const allProjects = async (req, res) => {
 
 const deleteProject = async (req, res) => {
    try {
-      const projectId = req.params.project;
+      const {projectId} = req.params;
+
+      //check if project exists and if it belongs to user;
+      const project = await projectService.queryOne({projectId});
+
+      if(!project) return res.status(StatusCodes.OK).json({code: StatusCodes.NOT_FOUND, message: 'Project with ID not found', status: false})
+
+      if(project.projectOwner !== req.user._id)return res.status(StatusCodes.OK).json({code: StatusCodes.UNAUTHORIZED, message: 'Unauthorized', status: false});
 
       await projectService.delete(projectId);
 

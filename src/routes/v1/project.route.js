@@ -7,6 +7,6 @@ const { protect, userPrivilege } = require("../../utils").jwt;
 
 router.post("/", protect, validateProject, asyncHandler(handler.project.newProject));
 router.get("/", protect, userPrivilege, asyncHandler(handler.project.allProjects));
-router.delete("/", protect, userPrivilege, asyncHandler(handler.project.deleteProject));
+router.delete("/:projectId", protect, userPrivilege, asyncHandler(handler.project.deleteProject));
 
 module.exports = router;
