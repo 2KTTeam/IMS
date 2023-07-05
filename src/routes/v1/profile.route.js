@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const handler = require("../../controllers");
-const { protect } = require("../../utils").jwt;
+const { protect, userPrivilege } = require("../../utils").jwt;
 const asyncHandler = require("express-async-handler");
-const {multer} = require("../../middlewares");
+const { multer } = require("../../middlewares");
 
-router.get("/", protect, asyncHandler(handler.profile.getProfile) );
-router.delete("/", protect, asyncHandler(handler.profile.deleteProfile)) ;
-router.put("/", protect, asyncHandler(handler.profile.editProfile) );
-router.put("/images", multer, protect ,asyncHandler(handler.profile.uploadImage));
-router.put('/files', multer, protect,asyncHandler(handler.profile.uploadFile));
+router.get("/", protect, userPrivilege, asyncHandler(handler.profile.getProfile));
+router.put("/", protect, userPrivilege, asyncHandler(handler.profile.editProfile));
+router.put("/images", multer, protect, userPrivilege, asyncHandler(handler.profile.uploadImage));
+router.put('/pdfs', multer, protect, userPrivilege, asyncHandler(handler.profile.uploadFile));
+router.delete("/", protect, userPrivilege, asyncHandler(handler.profile.deleteProfile));
 
 
 module.exports = router;          

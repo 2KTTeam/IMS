@@ -37,9 +37,9 @@ const deleteProfile = async function (req, res) {
   }
 }
 
-const editProfile = async function (req, res) {
+const editProfile = async (req, res) => {
   try {
-    const { firstname, middlename, lastname, gender, occupation, dateOfBirth } = req.body;
+    const { firstname, middlename, lastname, gender, occupation, dateOfBirth, phonenumber } = req.body;
     const updatedFields = {};
 
     if (firstname) {
@@ -56,6 +56,9 @@ const editProfile = async function (req, res) {
     }
     if (occupation) {
       updatedFields.occupation = occupation;
+    }
+    if (phonenumber) {
+      updatedFields.phoneNumber = phonenumber;
     }
     if (dateOfBirth) {
       updatedFields.dateOfBirth = dateOfBirth;
@@ -79,6 +82,7 @@ const editProfile = async function (req, res) {
 
 
 
+
 const uploadImage = async function (req, res) {
   try {
     const files = [...(req.files.images || [])];
@@ -91,7 +95,10 @@ const uploadImage = async function (req, res) {
       url: photo.secure_url,
     }));
 
-    userService.update(req.user.id, photos)
+    let userCopy = JSON.parse(JSON.stringify(req.user));
+    userCopy.photos = userCopy.photos.concat(photos);
+
+    userService.update(req.user.id, userCopy);
 
     return res.status(StatusCodes.OK).json({
       photos,
@@ -119,6 +126,11 @@ const uploadFile = async function (req, res) {
       url: document.secure_url,
     }));
 
+    let userCopy = JSON.parse(JSON.stringify(req.user));
+    userCopy.files = userCopy.files.concat(documents);
+
+    userService.update(req.user.id, userCopy);
+    
     return res.status(StatusCodes.OK).json({
       documents,
     });
