@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { userService } = require("../models");
+const { uploadMedia } = require("../services");
 
 
 const getProfile = async function (req, res) {
@@ -83,22 +84,49 @@ const editProfile = async function (req, res) {
 
 const uploadImage = async function (req, res) {
   try {
+    const files = [...(req.files.images || [])];
+    console.log("files", files);
+    const media = await Promise.all(files.map((file) => uploadMedia(file)));
+    const Uploadedphotos = media.filter((file) => file.resource_type === "image");
 
+    const photos = Uploadedphotos.map((photo) => ({
+      public_id: photo.public_id,
+      url: photo.secure_url,
+    }));
+
+    return res.status(StatusCodes.OK).json({
+      photos,
+    });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      error: `Error Uploading Image: ${error.message}`
+      message: error.message,
     });
   }
 }
 
 const uploadFile = async function (req, res) {
   try {
+    const files = [...(req.files.pdfs || [])];
+    console.log("files", files);
+    const media = await Promise.all(files.map((file) => uploadMedia(file)));
 
+    const UploadedDocuments = media.filter(
+      (file) => file.format === "pdf"
+    );
+
+    const documents = UploadedDocuments.map((document) => ({
+      public_id: document.public_id,
+      url: document.secure_url,
+    }));
+
+    return res.status(StatusCodes.OK).json({
+      documents,
+    });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      error: `Error Uploading File: ${error.message}`
+      message: error.message,
     });
   }
 }
