@@ -63,7 +63,7 @@ const allProjects = async (req, res) => {
    try {
       const projects = await projectService.query({
          projectOwner: req.user._id,
-      });
+      }).populate('projectOwner');
 
       const data = {
          projects,
@@ -81,7 +81,35 @@ const allProjects = async (req, res) => {
    }
 };
 
+
+const deleteProject = async (req, res) => {
+   try {
+      const {projectId} = req.params;
+
+      //check if project exists and if it belongs to user;
+      const project = await projectService.queryOne({projectId});
+
+      if(!project) return res.status(StatusCodes.OK).json({code: StatusCodes.NOT_FOUND, message: 'Project with ID not found', status: false})
+
+      if(project.projectOwner !== req.user._id)return res.status(StatusCodes.OK).json({code: StatusCodes.UNAUTHORIZED, message: 'Unauthorized', status: false});
+
+      await projectService.delete(projectId);
+
+      return res.status(StatusCodes.OK).json({
+         code: StatusCodes.OK,
+         message: 'Project deleted successfully',
+         status: true
+      });
+   } catch (error) {
+      return res.status(StatusCodes.OK).json({
+         success: false,
+         code: StatusCodes.INTERNAL_SERVER_ERROR,
+         error: `Error testing : ${error.message}`,
+      }); 
+   }
+}
+
 module.exports = {
    newProject,
    allProjects,
-};
+deleteProject};
