@@ -1,7 +1,7 @@
-const register = require('./signup.validate');
-const onboardOrganisation = require('./onboard_orgnisation.validate');
+const register = require("./signup.validate");
+const validateProject = require("./project.validate");
 
 module.exports = {
-  register,
-  onboardOrganisation
+   register,
+   validateProject,
 };
