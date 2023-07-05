@@ -22,39 +22,50 @@ These instructions will guide you on how to set up and utilize the IMS API in yo
 
 - Node.js and npm (Node Package Manager) installed on your machine.
 - MongoDB installed and running.
-- API credentials: check the 
-- 
+- API credentials: check the `.env.example` file for more information about the environment variables needed for the IMS API configuration
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/your-repo/ims-api.git`
-2. Navigate to the project directory: `cd ims-api`
+1. Clone the repository: `git clone https://github.com/2KTTeam/IMS.git`
+2. Navigate to the project directory: `cd IMS`
 3. Install the dependencies: `npm install`
 4. Configure the environment variables:
    - Create a `.env` file based on the `.env.example` file provided.
    - Update the environment variables with your specific configuration (e.g., MongoDB connection URL, API credentials).
-5. Start the application: `npm start`
+5. Start the application: `npm run start` which uses node to run the application in production environment; or you can use `npm run dev` which uses nodemon to run the API server in development environment. they are both available from the `package.json` file.
 
 ### API Documentation
 
 The API documentation provides detailed information about each endpoint, request parameters, and response formats. It's recommended to review the documentation to understand the available functionalities and how to interact with the API.
 
-You can find the API documentation at [https://your-api-docs-url.com](https://your-api-docs-url.com).
+You can find the API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
 
 ### Usage
 
 Once the IMS API is up and running, you can start making requests to the API endpoints using your preferred method (e.g., curl, Postman). Ensure that you include the required headers, request parameters, and payload as specified in the API documentation.
 
-Here's an example of a request to register a new user:
+Here's an example of a request to register a new Admin:
 
-POST /api/users/register
+POST /api/v1/auth/register/admin
 Content-Type: application/json
+access_token: bearer token of a Manager
 
 {
-"name": "John Doe",
-"email": "john.doe@example.com",
-"password": "password123"
+    "firstname": "Trebble",
+    "lastname": "Admin",
+    "email": "kenneth@gmail.com",
+    "password": "Manager123!",
+    "role": "admin",
+    "gender": "male",
+    "dateOfBirth": "1994-02-17",
+    "phoneNumber": "07067572151",
+    "address": {
+        "state": "Anambra",
+        "country": "Nigeria"
+    }
 }
+
+Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
 
 
 ### Security Considerations
@@ -71,22 +82,12 @@ When integrating the IMS API into your application, it's essential to follow sec
 
 Contributions to the IMS API are welcome! If you have any suggestions, bug reports, or feature requests, please submit them as issues or create a pull request with your proposed changes.
 
-## License
-
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
 ## Acknowledgments
 
 - [List any acknowledgments or credits to individuals or organizations whose work or contributions were used in the project.]
 
 ## Contact
 
-If you have any questions, feedback, or inquiries, please contact our support team at support@example.com.
+If you have any questions, feedback, or inquiries, please contact our support team at afudohkachi@gmail.com.
 
 ---
-
-Feel free to customize the README file to match the specific details and requirements of your IMS API. Add any additional sections, instructions, or information that you think would be relevant to the users of your API.
-
-Remember to replace the placeholders (e.g., `https://your-api-docs-url.com`, `your-repo/ims-api`, `support@example.com`) with the actual URLs, repository names, and contact information for your project.
-
-I hope this helps you get started with your IMS API! If you have any further questions, feel free to ask.
