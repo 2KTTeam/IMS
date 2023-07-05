@@ -11,5 +11,6 @@ app.use("/auth", auth);
 app.use("/users", user);
 app.use("/projects", project);
 app.use("/public", public);
+app.use("/profile", profile);
 
 module.exports = app;
