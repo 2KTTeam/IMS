@@ -1,9 +1,9 @@
-const {User, userService} = require("./user.model");
-const {Organisation} = require('./organisation.model');
-
+const { User, userService } = require("./user.model");
+const { Project, projectService } = require("./project.model");
 
 module.exports = {
-  User,
-  userService,
-  Organisation
+   User,
+   userService,
+   Project,
+   projectService,
 };
