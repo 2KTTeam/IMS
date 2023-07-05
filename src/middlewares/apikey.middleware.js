@@ -1,26 +1,26 @@
 const { StatusCodes } = require("http-status-codes");
 //const requestIp = require("request-ip");
-const {Organisation} = require('../models')
+const {Project} = require('../models')
 
-exports.verify_apikey = async (req, res, next) => {
+const verifyApikey = async (req, res, next) => {
   //get apikey from header
-  const apikey = req.headers.apikey;
+  const apiKey = req.headers.apikey;
 
   //get ip address
   const client_ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
   //const clientIp = requestIp.getClientIp(req);
   
   try {
-    const organisation = await Organisation.findOne({apikey});
+    const project = await Project.findOne({apiKey});
 
-    if (!organisation) return res.status(StatusCodes.OK).json({
+    if (!project) return res.status(StatusCodes.OK).json({
       code: StatusCodes.UNAUTHORIZED,
       message: 'Invlaid apikey',
       status: false
     })
 
     //Validate ip address
-    if (client_ip !== organisation.application_server_ip) return res.status(StatusCodes.OK).json({code: StatusCodes.BAD_GATEWAY, message: 'IP address is not whitelisted. Please onboard if not already or update your organisation ip address', status: false});
+    if (client_ip !== project.applicationServerIP) return res.status(StatusCodes.OK).json({code: StatusCodes.BAD_GATEWAY, message: 'IP address is not whitelisted. Please onboard if not already or update your project ip address', status: false});
 
 
     //Proceed if ip is white listed
@@ -34,3 +34,8 @@ exports.verify_apikey = async (req, res, next) => {
     });
   }
 };
+
+
+module.exports = {
+  verifyApikey
+}
