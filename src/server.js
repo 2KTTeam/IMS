@@ -6,7 +6,8 @@ const port = ENV.port
 
 const start = async () => {
   try {
-    const connected = await DB(MONGO_URL);
+    // const connected = await DB(MONGO_URL);
+    const connected = await DB(process.env.MONGO_LOCAL);
     if (connected) {
       app.listen(port, () => {
         console.log(`server is listening on port ${port}`);
