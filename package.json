@@ -13,7 +13,6 @@
   "dependencies": {
     "@treblle/express": "^0.0.6",
     "argon2": "^0.30.3",
-    "axios": "^1.4.0",
     "cloudinary": "^1.37.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
