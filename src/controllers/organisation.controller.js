@@ -2,7 +2,6 @@ const { Organisation } = require("../models");
 const { StatusCodes } = require("http-status-codes");
 const { uuidUtil, organisationwWelcomeEmail } = require("../utils");
 const {sendMail} = require('../services');
-const requestIp = require("request-ip");
 const IP = require('ip');
 
 const onboardOrgnisation = async (req, res) => {

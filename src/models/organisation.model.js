@@ -8,7 +8,7 @@ const orgSchema = new mongoose.Schema({
     required: [true, 'email is required']
   },
 
-  application_server_ip:{
+  application_server_ip: {
     type: String,
     required: [true, 'Server ip is required']
   },
@@ -20,10 +20,9 @@ const orgSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Institution name is required']
   },
-apikey: {
-  type: String,
-
-},
+  apikey: {
+    type: String,
+  },
 
   address: Object,
   created_on: {
@@ -36,7 +35,7 @@ apikey: {
 const Organisation = mongoose.model('Organisation', orgSchema);
 
 
-module.exports ={
+module.exports = {
   Organisation,
 
 }
