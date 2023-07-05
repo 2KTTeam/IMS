@@ -63,7 +63,7 @@ const allProjects = async (req, res) => {
    try {
       const projects = await projectService.query({
          projectOwner: req.user._id,
-      });
+      }).populate('projectOwner');
 
       //return response
       const data = {
@@ -82,7 +82,28 @@ const allProjects = async (req, res) => {
    }
 };
 
+
+const deleteProject = async (req, res) => {
+   try {
+      const projectId = req.params.project;
+
+      await projectService.delete(projectId);
+
+      return res.status(StatusCodes.OK).json({
+         code: StatusCodes.OK,
+         message: 'Project deleted successfully',
+         status: true
+      });
+   } catch (error) {
+      return res.status(StatusCodes.OK).json({
+         success: false,
+         code: StatusCodes.INTERNAL_SERVER_ERROR,
+         error: `Error testing : ${error.message}`,
+      }); 
+   }
+}
+
 module.exports = {
    newProject,
    allProjects,
-};
+deleteProject};
