@@ -8,8 +8,8 @@ const {multer} = require("../../middlewares");
 router.get("/", protect, asyncHandler(handler.profile.getProfile) );
 router.delete("/", protect, asyncHandler(handler.profile.deleteProfile)) ;
 router.put("/", protect, asyncHandler(handler.profile.editProfile) );
-router.post("/images", multer, protect ,asyncHandler(handler.profile.uploadImage));
-router.post('/files', multer, protect,asyncHandler(handler.profile.uploadFile));
+router.put("/images", multer, protect ,asyncHandler(handler.profile.uploadImage));
+router.put('/files', multer, protect,asyncHandler(handler.profile.uploadFile));
 
 
 module.exports = router;          

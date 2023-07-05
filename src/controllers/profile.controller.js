@@ -38,44 +38,41 @@ const deleteProfile = async function (req, res) {
 }
 
 const editProfile = async function (req, res) {
-  const changedInstances = [];
   try {
-    const { firstname, middlename, lastname,gender, occupation, dateOfBirth} = req.body;
+    const { firstname, middlename, lastname, gender, occupation, dateOfBirth } = req.body;
+    const updatedFields = {};
 
     if (firstname) {
-      changedInstances.push(firstname);
-    }
-    if (lastname) {
-      changedInstances.push(lastname);
+      updatedFields.firstname = firstname;
     }
     if (middlename) {
-      changedInstances.push(middlename);
-
+      updatedFields.middlename = middlename;
+    }
+    if (lastname) {
+      updatedFields.lastname = lastname;
     }
     if (gender) {
-      changedInstances.push(gender);
-
+      updatedFields.gender = gender;
     }
     if (occupation) {
-      changedInstances.push(occupation);
-
+      updatedFields.occupation = occupation;
     }
     if (dateOfBirth) {
-      changedInstances.push(dateOfBirth);
+      updatedFields.dateOfBirth = dateOfBirth;
     }
 
-    const updatedProfile = userService.update(req.user.id,changedInstances);
-     
+    const userId = req.user.id;
+    const updatedUser = await userService.update(userId, updatedFields);
+
     return res.status(StatusCodes.OK).json({
       success: true,
-      message: "",
-      user: updatedProfile
+      message: "Profile updated successfully.",
+      user: updatedUser
     });
-  }
-  catch (error) {
+  } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      error: error.message,
+      error: error.message
     });
   }
 };
@@ -93,7 +90,7 @@ const uploadImage = async function (req, res) {
       public_id: photo.public_id,
       url: photo.secure_url,
     }));
-    
+
     userService.update(req.user.id, photos)
 
     return res.status(StatusCodes.OK).json({
