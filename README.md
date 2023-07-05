@@ -41,6 +41,8 @@ The API documentation provides detailed information about each endpoint, request
 
 You can find the API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
 
+[this api is also hosted live on render](https://hackerthon2023.onrender.com)
+
 ### Usage
 
 Once the IMS API is up and running, you can start making requests to the API endpoints using your preferred method (e.g., curl, Postman). Ensure that you include the required headers, request parameters, and payload as specified in the API documentation.
