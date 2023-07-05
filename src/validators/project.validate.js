@@ -2,17 +2,13 @@ const Joi = require("joi");
 const { StatusCodes } = require("http-status-codes");
 
 const projectSchema = Joi.object({
-   oragnisationName: Joi.string().required().min(3).messages({
-      "any.required": "Project name is required",
-      "string.min": "Project name must be at least 3 characters",
-   }),
    projectName: Joi.string().required().min(3).messages({
       "any.required": "Project name is required",
       "string.min": "Project name must be at least 3 characters",
    }),
-   email: Joi.string().email().required().messages({
-      "string.email": "Please enter a valid email address",
-      "any.required": "Email is required",
+   organisationName: Joi.string().required().min(3).messages({
+      "any.required": "Organisation name is required",
+      "string.min": "Organisation name must be at least 3 characters",
    }),
    applicationServerIP: Joi.string()
       .required()
@@ -21,16 +17,6 @@ const projectSchema = Joi.object({
       )
       .messages({
          "string.pattern.base": "Invalid IP address. Please provide a valid IP adress",
-      }),
-
-   address: Joi.object({
-      zip_code: Joi.string(),
-      state: Joi.string(),
-      country: Joi.string(),
-   })
-      .required()
-      .messages({
-         "any.required": "Office address is required",
       }),
 }).options({ abortEarly: false });
 
