@@ -64,7 +64,7 @@ const editProfile = async function (req, res) {
       changedInstances.push(dateOfBirth);
     }
 
-    const updatedProfile = profileService.update(changedInstances);
+    const updatedProfile = userService.update(req.user.id,changedInstances);
      
     return res.status(StatusCodes.OK).json({
       success: true,
@@ -93,6 +93,8 @@ const uploadImage = async function (req, res) {
       public_id: photo.public_id,
       url: photo.secure_url,
     }));
+    
+    userService.update(req.user.id, photos)
 
     return res.status(StatusCodes.OK).json({
       photos,
