@@ -34,9 +34,10 @@ const newProject = async (req, res) => {
 
       //send email
       const emailType = "admin";
+      const subject =  "IMS Apikey";
       const message = organisationwWelcomeEmail(organisationName, apikey);
 
-      await sendMail(emailType, req.user.email, "IMS Apikey", message);
+      await sendMail(emailType, req.user.email, subject, message);
 
       //return response
       const data = {
