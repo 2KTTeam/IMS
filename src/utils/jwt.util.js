@@ -59,7 +59,7 @@ async function protect(req, res, next) {
 async function managerPrivilege(req, res, next) {
   try {
     if (req.user.role !== "manager") {
-      throw new Error("user is not a manager");
+      throw new Error("you are not a manager");
     }
 
     next();
@@ -75,7 +75,7 @@ async function managerPrivilege(req, res, next) {
 async function adminPrivilege(req, res, next) {
   try {
     if (req.user.role !== "admin") {
-      throw new Error("user is not an admin");
+      throw new Error("you are not an admin");
     }
     next();
   } catch (error) {
@@ -86,10 +86,24 @@ async function adminPrivilege(req, res, next) {
   }
 }
 
+async function userPrivilege(req, res, next) {
+  try {
+    if (req.user.role !== "user") {
+      throw new Error("you are not a user");
+    }
+    next();
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      message: `Permission denied ${error.message}`,
+    });
+  }
+}
 module.exports = {
   signToken,
   decodeToken,
   protect,
   managerPrivilege,
   adminPrivilege,
+  userPrivilege,
 };
