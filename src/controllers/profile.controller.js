@@ -36,6 +36,49 @@ const deleteProfile = async function (req, res) {
   }
 }
 
+const editProfile = async function (req, res) {
+  const changedInstances = [];
+  try {
+    const { firstname, middlename, lastname,gender, occupation, dateOfBirth} = req.body;
+
+    if (firstname) {
+      changedInstances.push(firstname);
+    }
+    if (lastname) {
+      changedInstances.push(lastname);
+    }
+    if (middlename) {
+      changedInstances.push(middlename);
+
+    }
+    if (gender) {
+      changedInstances.push(gender);
+
+    }
+    if (occupation) {
+      changedInstances.push(occupation);
+
+    }
+    if (dateOfBirth) {
+      changedInstances.push(dateOfBirth);
+    }
+
+    const updatedProfile = profileService.update(changedInstances);
+     
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "",
+      user: updatedProfile
+    });
+  }
+  catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 
 
 const uploadImage = async function (req, res) {
@@ -62,7 +105,8 @@ const uploadFile = async function (req, res) {
 
 module.exports = {
   getProfile,
-  deleteProfile
+  deleteProfile,
+  editProfile,
   uploadImage,
   uploadFile
 };
