@@ -14,6 +14,10 @@ const projectSchema = new mongoose.Schema(
       apikey: {
          type: String,
       },
+      projectId: {
+         type: String,
+         required: [true, "Project id is required"],
+      },
       organisationName: {
          type: String,
          required: [true, "Organisation name is required"],

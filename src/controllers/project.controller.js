@@ -18,6 +18,7 @@ const newProject = async (req, res) => {
       const uniqueId = await uuidUtil.giveID();
 
       const apikey = uniqueId.toLowerCase();
+      const projectId = uuidUtil.giveID();
 
       console.log(apikey);
 
@@ -25,8 +26,9 @@ const newProject = async (req, res) => {
 
       //create project
       await projectService.create({
-         projectOwner: req.user.userId,
+         projectOwner: req.user._id,
          projectName,
+         projectId,
          organisationName,
          applicationServerIP,
          apikey,
