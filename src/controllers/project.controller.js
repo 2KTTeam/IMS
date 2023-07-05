@@ -65,7 +65,6 @@ const allProjects = async (req, res) => {
          projectOwner: req.user._id,
       });
 
-      //return response
       const data = {
          projects,
       };
