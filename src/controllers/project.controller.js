@@ -6,8 +6,7 @@ const { sendMail } = require("../services");
 const newProject = async (req, res) => {
    try {
       //The project owner field should come from the middleware userPrivilege
-      const { projectName, projectOwner, organisationName, applicationServerIP } =
-         req.body;
+      const { projectName, organisationName, applicationServerIP } = req.body;
 
       // const client_ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
 
@@ -22,8 +21,11 @@ const newProject = async (req, res) => {
 
       console.log(apikey);
 
+      // console.log("user", req.user);
+
       //create project
       await projectService.create({
+         projectOwner: req.user.userId,
          projectName,
          organisationName,
          applicationServerIP,
@@ -32,15 +34,14 @@ const newProject = async (req, res) => {
 
       //send email
       const emailType = "admin";
-      const message = organisationwWelcomeEmail(institution_name, apikey);
+      const message = organisationwWelcomeEmail(organisationName, apikey);
 
-      await sendMail(emailType, email, "IMS Apikey", message);
+      await sendMail(emailType, req.user.email, "IMS Apikey", message);
 
       //return response
       const data = {
-         email,
-         institution_name,
-         software_name,
+         projectName,
+         organisationName,
       };
 
       return res
