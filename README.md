@@ -1,17 +1,17 @@
 # IMS API (Identity Management System)
 
-IMS API is an identity management system that provides a seamless way to verify users and manage their identities. It offers a set of endpoints that allow you to integrate identity verification functionalities into your applications with ease.
+IMS API is an identity management system that provides a seamless way to verify users and manage their identities. It offers a set of endpoints that allow you to identify and confirm the identity of a user.
 
 ## Features
 
-- User registration: Create user accounts with necessary information.
-- User authentication: Authenticate users based on their credentials.
-- User profile management: Update user information, such as name, email, and profile picture.
-- User role management: Assign roles to users, such as admin, manager, or user.
-- User status management: Activate, suspend, or delete user accounts.
-- User identity verification: Verify user identities using various methods, such as email verification or OTP (One-Time Password) verification.
-- User password management: Allow users to reset their passwords securely.
-- User access control: Implement role-based access control (RBAC) to restrict access to certain resources based on user roles.
+- Manager registration: Create Manager accounts (seeded into the system).
+- Admin registration: Create Admin accounts (by a Manager)
+- User registration: Create User accounts (by an Admin)
+
+- authentication: Authenticate users based on their credentials.
+- User profile management: Users can update their profile data, such as name, email photos and pdf documents.
+- User identity verification: Verify user identities using various methods, such as email verification and the use of OTP (One-Time Password) verification.
+- access control: restrict access to certain resources based on user roles using appropriate privillege middlewares.
 - User activity logging: Track and log user activities for auditing purposes.
 
 ## Getting Started
@@ -22,7 +22,8 @@ These instructions will guide you on how to set up and utilize the IMS API in yo
 
 - Node.js and npm (Node Package Manager) installed on your machine.
 - MongoDB installed and running.
-- API credentials (if required) for any additional services used by the IMS API, such as email or SMS providers.
+- API credentials: check the 
+- 
 
 ### Installation
 
