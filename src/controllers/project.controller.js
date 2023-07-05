@@ -18,7 +18,7 @@ const newProject = async (req, res) => {
       const uniqueId = await uuidUtil.giveID();
 
       const apikey = uniqueId.toLowerCase();
-      const projectId = uuidUtil.giveID();
+      const projectId = await uuidUtil.giveID();
 
       console.log(apikey);
 
@@ -36,7 +36,7 @@ const newProject = async (req, res) => {
 
       //send email
       const emailType = "admin";
-      const subject =  "IMS Apikey";
+      const subject = "IMS Apikey";
       const message = organisationwWelcomeEmail(organisationName, apikey);
 
       await sendMail(emailType, req.user.email, subject, message);
@@ -59,6 +59,30 @@ const newProject = async (req, res) => {
    }
 };
 
+const allProjects = async (req, res) => {
+   try {
+      const projects = await projectService.query({
+         projectOwner: req.user._id,
+      });
+
+      //return response
+      const data = {
+         projects,
+      };
+
+      return res
+         .status(StatusCodes.OK)
+         .json({ code: StatusCodes.OK, status: true, message: data });
+   } catch (error) {
+      return res.status(StatusCodes.OK).json({
+         success: false,
+         code: StatusCodes.INTERNAL_SERVER_ERROR,
+         error: `Error testing : ${error.message}`,
+      });
+   }
+};
+
 module.exports = {
    newProject,
+   allProjects,
 };
