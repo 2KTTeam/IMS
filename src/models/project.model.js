@@ -3,20 +3,24 @@ const DbService = require("./data.service");
 
 const projectSchema = new mongoose.Schema(
    {
-      applicationServerIP: {
-         type: String,
-         required: [true, "Server ip is required"],
-      },
       projectName: {
          type: String,
          required: [true, "Project name is required"],
+      },
+      projectOwner: {
+         type: String,
+         required: [true, "Project owner is required"],
+      },
+      apikey: {
+         type: String,
       },
       organisationName: {
          type: String,
          required: [true, "Organisation name is required"],
       },
-      apikey: {
+      applicationServerIP: {
          type: String,
+         required: [true, "Server ip is required"],
       },
    },
    {

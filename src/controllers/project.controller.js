@@ -1,12 +1,13 @@
 const { StatusCodes } = require("http-status-codes");
-const { userService } = require("../models");
-const { ProfileVerifyMail } = require("../email");
-const { uuidUtil, organisationwWelcomeEmail, generateOTP } = require("../utils");
+const { projectService } = require("../models");
+const { uuidUtil, organisationwWelcomeEmail } = require("../utils");
 const { sendMail } = require("../services");
 
 const newProject = async (req, res) => {
    try {
-      const { email, application_server_ip, project_name, organisation_name } = req.body;
+      //The project owner field should come from the middleware userPrivilege
+      const { projectName, projectOwner, organisationName, applicationServerIP } =
+         req.body;
 
       // const client_ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
 
@@ -22,11 +23,11 @@ const newProject = async (req, res) => {
       console.log(apikey);
 
       //create project
-      await Organisation.create({
-         application_server_ip,
-         project_name,
+      await projectService.create({
+         projectName,
+         organisationName,
+         applicationServerIP,
          apikey,
-         organisation_name,
       });
 
       //send email
@@ -54,78 +55,6 @@ const newProject = async (req, res) => {
    }
 };
 
-const verifyUser = async function (req, res) {
-   try {
-      const { userId } = req.body;
-      let availableUser = await userService.queryOne({ verification_token: userId });
-      if (!availableUser) {
-         return res.status(StatusCodes.BAD_REQUEST).json({
-            success: false,
-            message: "Invalid verification token",
-         });
-      }
-
-      const recipient = availableUser ? availableUser.email : null;
-      const firstname = availableUser ? availableUser.firstname : null;
-      const lastname = availableUser ? availableUser.lastname : null;
-      const UserToken = await generateOTP();
-
-      availableUser.OTP = UserToken;
-
-      const tokenizedUser = await userService.update(availableUser.id, availableUser);
-
-      if (recipient && firstname && lastname && UserToken) {
-         ProfileVerifyMail(recipient, firstname, lastname, UserToken);
-      } else {
-         throw new Error(
-            "ensure your: email, firstname, lastname and usertoken are valid"
-         );
-      }
-      return res.status(StatusCodes.OK).json({
-         success: true,
-         message: `One-Time-Pin(OTP) sent successfully, user with tokenID: ${userId} should authorize this action.`,
-      });
-   } catch (error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-         success: false,
-         error: `Verification Error: ${error.message}`,
-      });
-   }
-};
-
-const confirmUser = async function (req, res) {
-   try {
-      const { OTP } = req.body;
-      const { TokenId } = req.params;
-      const availableUser = await userService.queryOne({
-         verification_token: TokenId,
-         OTP: OTP,
-      });
-
-      let copy = JSON.parse(JSON.stringify(availableUser));
-
-      delete copy.password;
-      delete copy.verification_token;
-      delete copy.OTP;
-      delete copy.__v;
-      delete copy._id;
-      delete copy.createdAt;
-      delete copy.updatedAt;
-
-      return res.status(StatusCodes.OK).json({
-         success: true,
-         user: copy,
-      });
-   } catch (error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-         success: false,
-         error: `Confirmation Error: ${error.message}`,
-      });
-   }
-};
-
 module.exports = {
    newProject,
-   verifyUser,
-   confirmUser,
 };

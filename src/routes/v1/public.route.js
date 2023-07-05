@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const handler = require("../../controllers");
 const asyncHandler = require("express-async-handler");
-const { validateProject } = require("../../validators");
 
-router.post("/", validateProject, asyncHandler(handler.project.newProject));
+router.post("/user-verification", asyncHandler(handler.public.verifyUser));
+router.post("/user-confirmation", asyncHandler(handler.public.confirmUser));
 
 module.exports = router;
