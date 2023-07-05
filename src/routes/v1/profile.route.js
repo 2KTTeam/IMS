@@ -7,9 +7,10 @@ const { multer } = require("../../middlewares");
 
 router.get("/", protect, userPrivilege, asyncHandler(handler.profile.getProfile));
 router.put("/", protect, userPrivilege, asyncHandler(handler.profile.editProfile));
+router.delete("/", protect, userPrivilege, asyncHandler(handler.profile.deleteProfile));
+
 router.put("/images", multer, protect, userPrivilege, asyncHandler(handler.profile.uploadImage));
 router.put('/pdfs', multer, protect, userPrivilege, asyncHandler(handler.profile.uploadFile));
-router.delete("/", protect, userPrivilege, asyncHandler(handler.profile.deleteProfile));
 
 
 module.exports = router;          
