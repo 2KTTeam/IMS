@@ -8,11 +8,15 @@ const projectSchema = new mongoose.Schema(
          required: [true, "Project name is required"],
       },
       projectOwner: {
-         type: String,
+         type: mongoose.Schema.Types.ObjectId, ref: 'User',
          required: [true, "Project owner is required"],
       },
       apikey: {
          type: String,
+      },
+      projectId: {
+         type: String,
+         required: [true, "Project id is required"],
       },
       organisationName: {
          type: String,

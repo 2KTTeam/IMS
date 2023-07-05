@@ -18,6 +18,7 @@ const newProject = async (req, res) => {
       const uniqueId = await uuidUtil.giveID();
 
       const apikey = uniqueId.toLowerCase();
+      const projectId = uuidUtil.giveID();
 
       console.log(apikey);
 
@@ -25,8 +26,9 @@ const newProject = async (req, res) => {
 
       //create project
       await projectService.create({
-         projectOwner: req.user.userId,
+         projectOwner: req.user._id,
          projectName,
+         projectId,
          organisationName,
          applicationServerIP,
          apikey,
@@ -34,9 +36,10 @@ const newProject = async (req, res) => {
 
       //send email
       const emailType = "admin";
+      const subject =  "IMS Apikey";
       const message = organisationwWelcomeEmail(organisationName, apikey);
 
-      await sendMail(emailType, req.user.email, "IMS Apikey", message);
+      await sendMail(emailType, req.user.email, subject, message);
 
       //return response
       const data = {
