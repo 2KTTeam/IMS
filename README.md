@@ -56,7 +56,7 @@ Here's an example of a request to register a new Admin:
 POST /api/v1/auth/register/admin
 Content-Type: application/json
 access_token: bearer token of a Manager
-
+```
 {
     "firstname": "Trebble",
     "lastname": "Admin",
@@ -71,7 +71,7 @@ access_token: bearer token of a Manager
         "country": "Nigeria"
     }
 }
-
+```
 Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zFXKJe](https://documenter.getpostman.com/view/19482223/2s93zFXKJe).
 
 ### Security Considerations
