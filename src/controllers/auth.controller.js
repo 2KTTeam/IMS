@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const { auth } = require("../services");
 const {sendWelcomeEmail, welcomeUser } = require('../email');
 const {managerData} = require('../configs');
+const { userService } = require("../models");
 
 
 const registerManager = async (managerData) => {
@@ -25,6 +26,10 @@ registerManager(managerData);
 const registerAdmin = async (req, res) => {
   try {
     const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+
+    const currentUser =  userService.queryOne({email});
+
+    if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
 
     const newUser = {
       firstname, lastname, email, role: 'admin', password, gender, dateOfBirth, phoneNumber, address
@@ -56,6 +61,10 @@ const registerAdmin = async (req, res) => {
 const registerUser = async (req, res) => {
   try {
     const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
+    
+    const currentUser =  userService.queryOne({email});
+
+    if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
 
     const newUser = {
       firstname, lastname, email, role: 'user', password, gender, dateOfBirth, phoneNumber, address

@@ -16,6 +16,11 @@ const newProject = async (req, res) => {
 
       console.log(APIKey);
 
+      //check if organisation name is available
+      const project = await projectService.queryOne({organisationName});
+
+      if(project) return res.status(StatusCodes.CREATED).json({message: 'Project name is not available', status: false});
+
       // console.log("user", req.user);
 
       //create project
