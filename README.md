@@ -74,17 +74,6 @@ access_token: bearer token of a Manager
 ```
 Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zFXKJe](https://documenter.getpostman.com/view/19482223/2s93zFXKJe).
 
-### Security Considerations
-
-When integrating the IMS API into your application, it's essential to follow security best practices to protect user data and prevent unauthorized access. Consider the following:
-
-- Use secure connections (HTTPS) for all API requests to protect data in transit.
-- Implement user authentication and authorization to ensure only authorized users can access protected resources.
-- Enforce strong password policies and storing only hashed passwords using by Argon2 library .
-- Rate limiting of each IP to 500 requests to mitigate security vulnerabilities.
-- UUID caching: To ensure Unique identifier for all the resources
-- Monitor and log user activities to detect and respond to any suspicious or unauthorized activities.
-
 ## Contributing
 
 Contributions to the IMS API are welcome! If you have any suggestions, bug reports, or feature requests, please submit them as issues or create a pull request with your proposed changes.
