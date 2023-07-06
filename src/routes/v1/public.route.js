@@ -6,12 +6,13 @@ const asyncHandler = require("express-async-handler");
 const { verifyAPIKey } = require("../../middlewares");
 
 const publicRouteLimiter = rateLimit({
-   windowMs: 60 * 60 * 100, // 1 min
-   max: 2,
-   message: "Too many request from this IP, please try again after a minute.",
-   standardHeaders: true,
-   legacyHeaders: false,
-});
+	windowMs: 60 * 60 * 100, // 1 min
+	max: 4,
+	message:
+		'Too many request from this IP, please try again after a minute.',
+	standardHeaders: true,
+	legacyHeaders: false,
+})
 
 router.post(
    "/user-verification",
