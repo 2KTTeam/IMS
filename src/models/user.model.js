@@ -89,6 +89,9 @@ const userSchema = new mongoose.Schema(
       OTP: {
          type: String,
       },
+      otpExpirationTime: {
+         type: Number,
+      },
       status: {
          type: String,
          enum: allowedStatus,
