@@ -20,6 +20,7 @@ const verifyUser = async function (req, res) {
       const UserToken = await generateOTP();
 
       availableUser.OTP = UserToken;
+      availableUser.otpExpirationTime = Date.now() + 300000;
 
       const tokenizedUser = await userService.update(availableUser.id, availableUser);
 
@@ -49,6 +50,9 @@ const confirmUser = async function (req, res) {
          IMSCode: IMSCode,
          OTP: OTP,
       });
+
+      //check if otp has expired
+      if(Date.now() > availableUser.otpExpirationTime ) return res.status(StatusCodes.OK).json({message: 'token has expired', status: false});
 
       let copy = JSON.parse(JSON.stringify(availableUser));
 
