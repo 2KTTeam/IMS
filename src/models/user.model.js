@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const DbService = require("./data.service");
+const { number } = require("joi");
 const allowedRoles = ["admin", "manager", "user"];
 const allowedGender = ["male", "female", "others"];
 const allowedStatus = ["active", "suspended", "deleted"];
@@ -89,6 +90,7 @@ const userSchema = new mongoose.Schema(
       OTP: {
          type: String,
       },
+      otpStatus: {type: Number,}, // 1 --> unused 0---> used
       otpExpirationTime: {
          type: Number,
       },

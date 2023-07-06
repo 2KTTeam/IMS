@@ -39,7 +39,7 @@ These instructions will guide you on how to set up and utilize the IMS API in yo
 
 The API documentation provides detailed information about each endpoint, request parameters, and response formats. It's recommended to review the documentation to understand the available functionalities and how to interact with the API.
 
-You can find the API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
+You can find the API documentation at [https://documenter.getpostman.com/view/19482223/2s93zFXKJe](https://documenter.getpostman.com/view/19482223/2s93zFXKJe).
 
 [This API is also hosted live on render server here. Click me!](https://hackerthon2023.onrender.com)
 
@@ -68,7 +68,7 @@ access_token: bearer token of a Manager
     }
 }
 
-Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
+Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zFXKJe](https://documenter.getpostman.com/view/19482223/2s93zFXKJe).
 
 ### Security Considerations
 
@@ -91,7 +91,7 @@ We would like to acknowledge and express our heartfelt appreciation to the dedic
 
 - [Afudoh Kachi Douglas](https://github.com/fudosman) Your coding skills contributed to the accelerated development of the project.
 - [Toby Chidi](https://github.com/tobychidi) Your quality assurance skill, ensured that we were upholding all the 10 laws of rest and all the best practices of clean code.
-- [Kenechukwu Josai](https://github.com/kenechukwuJosiah) for your amazing ideas that accelarated our development speed.
+- [Kenechukwu Josaih](https://github.com/kenechukwuJosiah) for your amazing ideas that accelarated our development speed.
 
 We are grateful to the Trebble team for an opportunity to participate in this hackerthon. we deeply appreciate the effort that has gone into making the hackathon and it has been a social outlet of the 2KTteam.
 
