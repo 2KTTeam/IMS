@@ -6,7 +6,7 @@ const { userService } = require("../models");
 const verifyUser = async function (req, res) {
    try {
       const { userId } = req.body;
-      let availableUser = await userService.queryOne({ verification_token: userId });
+      let availableUser = await userService.queryOne({ IMSCode: userId });
       if (!availableUser) {
          return res.status(StatusCodes.BAD_REQUEST).json({
             success: false,
@@ -21,6 +21,7 @@ const verifyUser = async function (req, res) {
 
       availableUser.OTP = UserToken;
       availableUser.otpExpirationTime = Date.now() + 300000;
+      availableUser.otpStatus = 1;
 
       const tokenizedUser = await userService.update(availableUser.id, availableUser);
 
@@ -51,8 +52,14 @@ const confirmUser = async function (req, res) {
          OTP: OTP,
       });
 
+      //check if otp has been used
+      if(availableUser.otpStatus == 0)return res.status(StatusCodes.OK).json({message: 'otp has been used by you', status: false});
+
       //check if otp has expired
-      if(Date.now() > availableUser.otpExpirationTime ) return res.status(StatusCodes.OK).json({message: 'token has expired', status: false});
+      if(Date.now() > availableUser.otpExpirationTime  ) return res.status(StatusCodes.OK).json({message: 'token has expired', status: false});
+
+      //remove token from user document
+      await userService.update(availableUser._id, {otpStatus: 0});
 
       let copy = JSON.parse(JSON.stringify(availableUser));
 
@@ -63,6 +70,7 @@ const confirmUser = async function (req, res) {
       delete copy._id;
       delete copy.createdAt;
       delete copy.updatedAt;
+      delete copy.otpExpirationTime;
 
       return res.status(StatusCodes.OK).json({
          success: true,
