@@ -1,6 +1,6 @@
 # IMS API (Identity Management System)
 The IMS API is a system that manages user identities and access rights for projects. It allows users to
-securely share their information with projects that request it, using a combination of a secret code and an OTP
+securely share their information with projects that request it, using a combination of a persnal IMS code and an OTP
 (One-Time Password). Users can also edit their profile information, such as photos and files, and have full control
 over their data
 
