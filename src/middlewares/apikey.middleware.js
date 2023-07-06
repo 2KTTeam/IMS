@@ -11,12 +11,14 @@ const verifyAPIKey = async (req, res, next) => {
 
       if (!APIKey) {
          return res.status(StatusCodes.UNAUTHORIZED).json({
-            message: "Invlaid API Key",
+            message: " API Key is required",
             status: false,
          });
       }
 
       const project = await projectService.queryOne({ APIKey });
+
+      if(!project)return res.status(StatusCodes.NOT_FOUND).json({message: 'Invalid API key provided', status: false});
 
       return next();
    } catch (error) {
