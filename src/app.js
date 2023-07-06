@@ -36,13 +36,6 @@ app.use(
    })
 );
 
-// TREBBLE LOGGER
-app.use(
-   treblle({
-      apiKey: ENV.TRB_API_KEY,
-      projectId: ENV.TRB_PROJ_ID,
-   })
-);
 
 // log all requests
 app.use(
@@ -80,6 +73,15 @@ app.use((req, res, next) => {
    console.log("Request received:", req.method, req.url);
    next();
 });
+
+// TREBBLE LOGGER
+app.use(
+   treblle({
+      apiKey: ENV.TRB_API_KEY,
+      projectId: ENV.TRB_PROJ_ID,
+   })
+);
+
 
 // routes
 app.get("/", views.home);
