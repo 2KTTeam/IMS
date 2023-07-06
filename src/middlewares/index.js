@@ -1,7 +1,7 @@
-const multer = require('./multer.middleware');
-const {verifyApikey} = require('./apikey.middleware');
+const multer = require("./multer.middleware");
+const { verifyAPIKey } = require("./APIKey.middleware");
 
 module.exports = {
-  multer,
-  verifyApikey
+   multer,
+   verifyAPIKey,
 };

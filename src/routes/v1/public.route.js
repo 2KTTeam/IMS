@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const rateLimit =  require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 const handler = require("../../controllers");
 const asyncHandler = require("express-async-handler");
-const { verifyApikey} = require('../../middlewares');
+const { verifyAPIKey } = require("../../middlewares");
 
 const publicRouteLimiter = rateLimit({
 	windowMs: 60 * 60 * 100, // 1 min
@@ -14,7 +14,17 @@ const publicRouteLimiter = rateLimit({
 	legacyHeaders: false,
 })
 
-router.post("/user-verification", publicRouteLimiter, verifyApikey, asyncHandler(handler.public.verifyUser));
-router.post("/user-confirmation", publicRouteLimiter, verifyApikey, asyncHandler(handler.public.confirmUser));
+router.post(
+   "/user-verification",
+   publicRouteLimiter,
+   verifyAPIKey,
+   asyncHandler(handler.public.verifyUser)
+);
+router.post(
+   "/user-confirmation",
+   publicRouteLimiter,
+   verifyAPIKey,
+   asyncHandler(handler.public.confirmUser)
+);
 
 module.exports = router;

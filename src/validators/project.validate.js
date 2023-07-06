@@ -10,14 +10,6 @@ const projectSchema = Joi.object({
       "any.required": "Organisation name is required",
       "string.min": "Organisation name must be at least 3 characters",
    }),
-   applicationServerIP: Joi.string()
-      .required()
-      .pattern(
-         /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
-      )
-      .messages({
-         "string.pattern.base": "Invalid IP address. Please provide a valid IP adress",
-      }),
 }).options({ abortEarly: false });
 
 const validateProject = (req, res, next) => {

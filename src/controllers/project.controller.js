@@ -6,21 +6,15 @@ const { sendMail } = require("../services");
 const newProject = async (req, res) => {
    try {
       //The project owner field should come from the middleware userPrivilege
-      const { projectName, organisationName, applicationServerIP } = req.body;
-
-      // const client_ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
-
-      const client_ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-
-      console.log("IP ADDRESS", client_ip);
+      const { projectName, organisationName } = req.body;
 
       //Generate apikey
       const uniqueId = await uuidUtil.giveID();
 
-      const apikey = uniqueId.toLowerCase();
+      const APIKey = uniqueId.toLowerCase();
       const projectId = await uuidUtil.giveID();
 
-      console.log(apikey);
+      console.log(APIKey);
 
       // console.log("user", req.user);
 
@@ -30,21 +24,21 @@ const newProject = async (req, res) => {
          projectName,
          projectId,
          organisationName,
-         applicationServerIP,
-         apikey,
+         APIKey,
       });
 
       //send email
       const emailType = "admin";
-      const subject = "IMS Apikey";
-      const message = organisationwWelcomeEmail(organisationName, apikey);
+      const subject = "IMS API Key";
+      const message = organisationwWelcomeEmail(organisationName, APIKey);
 
-      await sendMail(emailType, req.user.email, subject, message);
+      sendMail(emailType, req.user.email, subject, message);
 
       //return response
       const data = {
          projectName,
          organisationName,
+         APIKey,
       };
 
       return res
@@ -65,6 +59,7 @@ const allProjects = async (req, res) => {
          projectOwner: req.user.id,
       }).populate('projectOwner');
 
+
       const data = {
          projects,
       };
@@ -81,35 +76,45 @@ const allProjects = async (req, res) => {
    }
 };
 
-
 const deleteProject = async (req, res) => {
    try {
-      const {projectId} = req.params;
+      const { projectId } = req.params;
 
       //check if project exists and if it belongs to user;
-      const project = await projectService.queryOne({projectId});
+      const project = await projectService.queryOne({ projectId });
 
-      if(!project) return res.status(StatusCodes.OK).json({code: StatusCodes.NOT_FOUND, message: 'Project with ID not found', status: false})
+      if (!project)
+         return res.status(StatusCodes.OK).json({
+            code: StatusCodes.NOT_FOUND,
+            message: "Project with ID not found",
+            status: false,
+         });
 
-      if(project.projectOwner !== req.user._id)return res.status(StatusCodes.OK).json({code: StatusCodes.UNAUTHORIZED, message: 'Unauthorized', status: false});
+      if (project.projectOwner !== req.user._id)
+         return res.status(StatusCodes.OK).json({
+            code: StatusCodes.UNAUTHORIZED,
+            message: "Unauthorized",
+            status: false,
+         });
 
       await projectService.delete(projectId);
 
       return res.status(StatusCodes.OK).json({
          code: StatusCodes.OK,
-         message: 'Project deleted successfully',
-         status: true
+         message: "Project deleted successfully",
+         status: true,
       });
    } catch (error) {
       return res.status(StatusCodes.OK).json({
          success: false,
          code: StatusCodes.INTERNAL_SERVER_ERROR,
          error: `Error testing : ${error.message}`,
-      }); 
+      });
    }
-}
+};
 
 module.exports = {
    newProject,
    allProjects,
-deleteProject};
+   deleteProject,
+};
