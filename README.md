@@ -2,7 +2,7 @@
 
 The IMS API is an identity management system that provides secure user information access. It offers a comprehensive set of endpoints to enable user verification and authorization for organizations. Users can grant permission to institutions using a secret access code received during registration, along with an OTP (One-Time Password) sent via email. Users also have full control over their data, with the ability to edit their profile information, including photos and files.
 
-![IMS Logo](https://res.cloudinary.com/dtesbvsy0/image/upload/v1688582396/2KTteam_k6gjve.png](https://avatars.githubusercontent.com/u/137884781?s=48&v=4))
+![IMS Logo](https://res.cloudinary.com/dtesbvsy0/image/upload/v1688582396/2KTteam_k6gjve.png)
 
 ## Features
 
@@ -41,7 +41,7 @@ The API documentation provides detailed information about each endpoint, request
 
 You can find the API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
 
-[this api is also hosted live on render](https://hackerthon2023.onrender.com)
+[This API is also hosted live on render server here. Click me!](https://hackerthon2023.onrender.com)
 
 ### Usage
 
@@ -69,7 +69,6 @@ access_token: bearer token of a Manager
 }
 
 Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zB51bY](https://documenter.getpostman.com/view/19482223/2s93zB51bY).
-
 
 ### Security Considerations
 
