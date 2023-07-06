@@ -93,7 +93,7 @@ We would like to acknowledge and express our heartfelt appreciation to the dedic
 - [Toby Chidi](https://github.com/tobychidi) Your quality assurance skill, ensured that we were upholding all the 10 laws of rest and all the best practices of clean code.
 - [Kenechukwu Josai](https://github.com/kenechukwuJosiah) for your amazing ideas that accelarated our development speed.
 
-We are grateful to the Trebble team for an opportunity to participate in this hackerthon. we deeply appreciate the effort that has gone into making the hackathon and i has been a social outlet of the 2KTteam. 
+We are grateful to the Trebble team for an opportunity to participate in this hackerthon. we deeply appreciate the effort that has gone into making the hackathon and it has been a social outlet of the 2KTteam.
 
 ## Contact
 
