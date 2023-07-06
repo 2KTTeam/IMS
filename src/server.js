@@ -2,24 +2,23 @@ const app = require("./app.js");
 const { DB, ENV } = require("./configs");
 
 const MONGO_URL = ENV.dbUrl;
-const port = ENV.port
+const port = ENV.port;
 
 const start = async () => {
-  try {
-    // const connected = await DB(MONGO_URL);
-    const connected = await DB(process.env.MONGO_LOCAL);
-    if (connected) {
-      app.listen(port, () => {
-        console.log(`server is listening on port ${port}`);
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
+   try {
+      const connected = await DB(MONGO_URL);
+      // const connected = await DB(process.env.MONGO_LOCAL);
+      if (connected) {
+         app.listen(port, () => {
+            console.log(`server is listening on port ${port}`);
+         });
+      }
+   } catch (error) {
+      console.error(error);
+   }
 };
 
 start();
-
 
 // for secure server using https, you need to configure the openssl in your system.
 // then link to it like i did, but since

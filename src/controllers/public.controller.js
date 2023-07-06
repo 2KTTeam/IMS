@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { ProfileVerifyMail } = require("../email");
 const { generateOTP } = require("../utils");
+const { userService } = require("../models");
 
 const verifyUser = async function (req, res) {
    try {
@@ -43,10 +44,9 @@ const verifyUser = async function (req, res) {
 
 const confirmUser = async function (req, res) {
    try {
-      const { OTP } = req.body;
-      const { TokenId } = req.params;
+      const { OTP, IMSCode } = req.body;
       const availableUser = await userService.queryOne({
-         verification_token: TokenId,
+         IMSCode: IMSCode,
          OTP: OTP,
       });
 

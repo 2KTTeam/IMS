@@ -8,10 +8,11 @@ const projectSchema = new mongoose.Schema(
          required: [true, "Project name is required"],
       },
       projectOwner: {
-         type: mongoose.Schema.Types.ObjectId, ref: 'User',
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "User",
          required: [true, "Project owner is required"],
       },
-      apikey: {
+      APIKey: {
          type: String,
       },
       projectId: {
@@ -21,10 +22,6 @@ const projectSchema = new mongoose.Schema(
       organisationName: {
          type: String,
          required: [true, "Organisation name is required"],
-      },
-      applicationServerIP: {
-         type: String,
-         required: [true, "Server ip is required"],
       },
    },
    {
