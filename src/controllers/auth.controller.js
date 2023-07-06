@@ -52,7 +52,7 @@ const registerAdmin = async (req, res) => {
          address,
       } = req.body;
 
-      const currentUser = userService.queryOne({ email });
+      const currentUser = await userService.queryOne({ email });
 
       if (currentUser)
          return res
@@ -78,34 +78,10 @@ const registerAdmin = async (req, res) => {
             message: "Admin not registered!",
          });
       }
-
-      sendWelcomeEmail(email, firstname, lastname, email, password);
-
-      // Return the saved User object
-      return res.status(StatusCodes.CREATED).json({
-         success: true,
-         user,
-      });
    } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
          success: false,
          error: `Error creating Admin: ${error.message}`,
-  try {
-    const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
-
-    const currentUser =  await userService.queryOne({email});
-
-    if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
-
-    const newUser = {
-      firstname, lastname, email, role: 'admin', password, gender, dateOfBirth, phoneNumber, address
-    }
-
-    const user = await auth.register(newUser);
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: 'Admin not registered!'
       });
    }
 };
@@ -123,7 +99,7 @@ const registerUser = async (req, res) => {
          address,
       } = req.body;
 
-      const currentUser = userService.queryOne({ email });
+      const currentUser = await userService.queryOne({ email });
 
       if (currentUser)
          return res
@@ -149,7 +125,8 @@ const registerUser = async (req, res) => {
             message: "Admin not registered!",
          });
       }
-      welcomeUser(email, firstname, lastname, email, password, user.verificaiton_token);
+
+      welcomeUser(email, firstname, lastname, email, password, user.IMSCode);
       // Return the saved User object
       return res.status(StatusCodes.CREATED).json({
          success: true,
@@ -162,38 +139,6 @@ const registerUser = async (req, res) => {
       });
    }
 };
-  try {
-    const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
-    
-    const currentUser =  await userService.queryOne({email});
-
-    if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
-
-    const newUser = {
-      firstname, lastname, email, role: 'user', password, gender, dateOfBirth, phoneNumber, address
-    }
-
-    const user = await auth.register(newUser);
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: 'Admin not registered!'
-      });
-    }
-
-    welcomeUser(email, firstname, lastname, email, password, user.IMSCode)
-    // Return the saved User object
-    return res.status(StatusCodes.CREATED).json({
-      success: true,
-      user
-    });
-  } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      error: `Error creating Admin: ${error.message}`
-    });
-  }
-}
 
 const login = async function (req, res) {
    try {
