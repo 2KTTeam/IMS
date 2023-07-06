@@ -27,7 +27,7 @@ const registerAdmin = async (req, res) => {
   try {
     const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
 
-    const currentUser =  userService.queryOne({email});
+    const currentUser =  await userService.queryOne({email});
 
     if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
 
@@ -62,7 +62,7 @@ const registerUser = async (req, res) => {
   try {
     const { firstname, lastname, email, password, gender, dateOfBirth, phoneNumber, address } = req.body;
     
-    const currentUser =  userService.queryOne({email});
+    const currentUser =  await userService.queryOne({email});
 
     if(currentUser) return res.status(StatusCodes.CREATED).json({message: 'User with email already exists', status: false})
 
@@ -77,7 +77,8 @@ const registerUser = async (req, res) => {
         message: 'Admin not registered!'
       });
     }
-    welcomeUser(email, firstname, lastname,email, password, user.verification_token)
+
+    welcomeUser(email, firstname, lastname, email, password, user.IMSCode)
     // Return the saved User object
     return res.status(StatusCodes.CREATED).json({
       success: true,

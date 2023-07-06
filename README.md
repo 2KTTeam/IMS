@@ -30,10 +30,12 @@ These instructions will guide you on how to set up and utilize the IMS API in yo
 1. Clone the repository: `git clone https://github.com/2KTTeam/IMS.git`
 2. Navigate to the project directory: `cd IMS`
 3. Install the dependencies: `npm install`
-4. Configure the environment variables:
+4. Open in a code editor
+5. Configure the environment variables:
    - Create a `.env` file based on the `.env.example` file provided.
+   - Copy all the variables from the `.env.example` file to the `.env` file
    - Update the environment variables with your specific configuration (e.g., MongoDB connection URL, API credentials).
-5. Start the application: `npm run start` which uses node to run the application in production environment; or you can use `npm run dev` which uses nodemon to run the API server in development environment. they are both available from the `package.json` file.
+6. Start the application: `npm run start` which uses node to run the application in production environment; or you can use `npm run dev` which uses nodemon to run the API server in development environment. they are both available from the `package.json` file.
 
 ### API Documentation
 
