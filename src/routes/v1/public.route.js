@@ -7,7 +7,7 @@ const { verifyApikey} = require('../../middlewares');
 
 const publicRouteLimiter = rateLimit({
 	windowMs: 60 * 60 * 100, // 1 min
-	max: 2,
+	max: 4,
 	message:
 		'Too many request from this IP, please try again after a minute.',
 	standardHeaders: true,

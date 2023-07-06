@@ -23,15 +23,13 @@ const organisationwWelcomeEmail = (orgname, apikey) => {
         
         <p>Please ensure that you keep this API key confidential and securely store it within your organization. It grants access to sensitive data and resources within our system.</p>
         
-        <p>If you require any assistance or have any questions regarding the usage of our API, please feel free to reach out to our support team at [Support Email] or [Support Phone Number]. We are here to help you every step of the way.</p>
+        <p>If you require any assistance or have any questions regarding the usage of our API, please feel free to reach out to our support team on 07067572151. We are here to help you every step of the way.</p>
         
         <p>Once again, welcome to IMS. We are excited to collaborate with you and see the innovative solutions you create with our API. Thank you for choosing us as your trusted partner.</p>
         
         <p>Best regards,<br>
-        2kT<br>
-        Management<br>
-        IMS<br>
         kennysuccesskay@gmail.com</p>
+        2kTteam<br>
     </div>
 </body>
 </html>

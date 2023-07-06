@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { projectService } = require("../models");
+const { projectService, Project } = require("../models");
 const { uuidUtil, organisationwWelcomeEmail } = require("../utils");
 const { sendMail } = require("../services");
 
@@ -48,7 +48,7 @@ const newProject = async (req, res) => {
       };
 
       return res
-         .status(StatusCodes.OK)
+         .status(StatusCodes.CREATED)
          .json({ code: StatusCodes.CREATED, status: true, message: data });
    } catch (error) {
       return res.status(StatusCodes.OK).json({
@@ -61,8 +61,8 @@ const newProject = async (req, res) => {
 
 const allProjects = async (req, res) => {
    try {
-      const projects = await projectService.query({
-         projectOwner: req.user._id,
+      const projects = await Project.find({
+         projectOwner: req.user.id,
       }).populate('projectOwner');
 
       const data = {

@@ -11,12 +11,11 @@ const verifyApikey = async (req, res, next) => {
   //const clientIp = requestIp.getClientIp(req);
   
   try {
-    const project = await Project.findOne({apiKey});
+    const project = await Project.findOne({apikey:apiKey});
 
-    if (!project) return res.status(StatusCodes.OK).json({
-      code: StatusCodes.UNAUTHORIZED,
+    if (!project) return res.status(StatusCodes.UNAUTHORIZED).json({
+      status: false,
       message: 'Invlaid apikey',
-      status: false
     })
 
     //Validate ip address
