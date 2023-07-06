@@ -1,6 +1,8 @@
 # IMS API (Identity Management System)
-
-The IMS API is an identity management system that provides secure user information access. It offers a comprehensive set of endpoints to enable user verification and authorization for organizations. Users can grant permission to institutions using a secret access code received during registration, along with an OTP (One-Time Password) sent via email. Users also have full control over their data, with the ability to edit their profile information, including photos and files.
+The IMS API is a system that manages user identities and access rights for projects. It allows users to
+securely share their information with projects that request it, using a combination of a persnal IMS code and an OTP
+(One-Time Password). Users can also edit their profile information, such as photos and files, and have full control
+over their data
 
 ![IMS Logo](https://res.cloudinary.com/dtesbvsy0/image/upload/v1688582396/2KTteam_k6gjve.png)
 
@@ -54,7 +56,7 @@ Here's an example of a request to register a new Admin:
 POST /api/v1/auth/register/admin
 Content-Type: application/json
 access_token: bearer token of a Manager
-
+```
 {
     "firstname": "Trebble",
     "lastname": "Admin",
@@ -69,19 +71,8 @@ access_token: bearer token of a Manager
         "country": "Nigeria"
     }
 }
-
+```
 Find the full API documentation at [https://documenter.getpostman.com/view/19482223/2s93zFXKJe](https://documenter.getpostman.com/view/19482223/2s93zFXKJe).
-
-### Security Considerations
-
-When integrating the IMS API into your application, it's essential to follow security best practices to protect user data and prevent unauthorized access. Consider the following:
-
-- Use secure connections (HTTPS) for all API requests to protect data in transit.
-- Implement user authentication and authorization to ensure only authorized users can access protected resources.
-- Enforce strong password policies and storing only hashed passwords using by Argon2 library .
-- Rate limiting of each IP to 500 requests to mitigate security vulnerabilities.
-- UUID caching: To ensure Unique identifier for all the resources
-- Monitor and log user activities to detect and respond to any suspicious or unauthorized activities.
 
 ## Contributing
 

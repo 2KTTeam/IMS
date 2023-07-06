@@ -5,15 +5,8 @@ const asyncHandler = require("express-async-handler");
 const { validateUser } = require("../../validators");
 const { protect, adminPrivilege } = require("../../utils/jwt.util");
 
-router.post(
-   "/",
-   protect,
-   adminPrivilege,
-   validateUser,
-   asyncHandler(handler.user.newUser)
-);
 router.get("/", protect, adminPrivilege, asyncHandler(handler.user.allUsers));
 router.get("/:userId", protect, adminPrivilege, asyncHandler(handler.user.singleUser));
-router.delete("/", protect, adminPrivilege, asyncHandler(handler.user.deleteUser));
+router.delete("/:userId", protect, adminPrivilege, asyncHandler(handler.user.deleteUser));
 
 module.exports = router;
